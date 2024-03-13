@@ -1,0 +1,10 @@
+
+body {
+    background-color: rgb(158, 228, 137);
+}
+.add-employee-wrapper {
+    border: 1px solid black;
+}
+.add-animal-wrapper {
+    border: 1px solid black;
+}

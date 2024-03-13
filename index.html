@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="add-employee-wrapper">
+        <h3>Add Employee</h3>
+        <input id="title" placeholder="Enter name" required />
+        <button>Add</button>
+        <p id="employee-message"></p>
+      </div>
+      <div class="add-animal-wrapper">
+        <h3>Add Animal</h3>
+        <input id="title" placeholder="Enter name" required />
+        <select name="animal" id="choose-animal" required>
+          <option value="">Choose Animal</option>
+          <option value="Elephant">Elephant</option>
+          <option value="Zebra">Zebra</option>
+          <option value="Tiger">Tiger</option>
+      </select>
+        <p id="animal-message"></p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
