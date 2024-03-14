@@ -4,6 +4,8 @@ import { Employee } from "../src/features/employee/Employee";
 import { Animals } from "../src/features/animal/Animals";
 import { Elephant, Zebra, Tiger } from "../src/features/animal/Zoo";
 
+import { Logger } from "../src/features/logger/logger";
+
 class Zookeeper extends Employee {
   protected feedLog: { animal: string; time: Date }[];
 
@@ -61,6 +63,8 @@ animals.addAnimal(tiger);
 const allAnimals = animals.getAnimals();
 console.log(allAnimals);
 
+// -------------------------ADD EMPLOYEE--------------------------------------
+
 const addEmployeeBtn = document.getElementById(
   "add-employee",
 ) as HTMLButtonElement;
@@ -88,50 +92,83 @@ addEmployeeBtn.addEventListener("click", () => {
   }
 });
 
+// --------------------ADD ANIMAL------------------------------------------------------------------
+
 const addAnimal = document.getElementById("add-animal") as HTMLButtonElement;
 
 addAnimal.addEventListener("click", () => {
-  const animalSelect = document.getElementById("choose-animal") as HTMLSelectElement;
+  const animalSelect = document.getElementById(
+    "choose-animal",
+  ) as HTMLSelectElement;
   const selectedAnimal: string = animalSelect.value;
 
   let newAnimal;
 
   switch (selectedAnimal) {
-    case "Elephant":{
-      const elephantName = (document.getElementById("elephant-name") as HTMLInputElement).value.trim();
-      const elephantWeight = parseFloat((document.getElementById("elephant-weight") as HTMLInputElement).value.trim());
-      const elephantAge = parseInt((document.getElementById("elephant-age") as HTMLInputElement).value.trim());
+    case "Elephant": {
+      const elephantName = (
+        document.getElementById("elephant-name") as HTMLInputElement
+      ).value.trim();
+      const elephantWeight = parseFloat(
+        (
+          document.getElementById("elephant-weight") as HTMLInputElement
+        ).value.trim(),
+      );
+      const elephantAge = parseInt(
+        (
+          document.getElementById("elephant-age") as HTMLInputElement
+        ).value.trim(),
+      );
       if (!elephantName || isNaN(elephantWeight) || isNaN(elephantAge)) {
         alert("Please fill in all required fields for Elephant.");
         return;
-    }
+      }
       newAnimal = new Elephant(elephantName, elephantAge, elephantWeight);
       break;
-        }
+    }
     case "Zebra": {
-      const zebraName = (document.getElementById("zebra-name") as HTMLInputElement).value.trim();
-      const zebraAge = parseInt((document.getElementById("zebra-age") as HTMLInputElement).value.trim());
-      const zebraMaxSpeed = parseFloat((document.getElementById("zebra-maxSpeed") as HTMLInputElement).value.trim());
-      const zebraOrigin = (document.getElementById("zebra-origin") as HTMLInputElement).value.trim();
-      if (!zebraName || isNaN(zebraAge) || isNaN(zebraMaxSpeed) || !zebraOrigin) {
+      const zebraName = (
+        document.getElementById("zebra-name") as HTMLInputElement
+      ).value.trim();
+      const zebraAge = parseInt(
+        (document.getElementById("zebra-age") as HTMLInputElement).value.trim(),
+      );
+      const zebraMaxSpeed = parseFloat(
+        (
+          document.getElementById("zebra-maxSpeed") as HTMLInputElement
+        ).value.trim(),
+      );
+      const zebraOrigin = (
+        document.getElementById("zebra-origin") as HTMLInputElement
+      ).value.trim();
+      if (
+        !zebraName ||
+        isNaN(zebraAge) ||
+        isNaN(zebraMaxSpeed) ||
+        !zebraOrigin
+      ) {
         alert("Please fill in all required fields for Zebra.");
         return;
-    }
+      }
       newAnimal = new Zebra(zebraName, zebraAge, zebraMaxSpeed, zebraOrigin);
       break;
     }
     case "Tiger": {
-      const tigerName = (document.getElementById("tiger-name") as HTMLInputElement).value.trim();
-      const tigerAge = parseInt((document.getElementById("tiger-age") as HTMLInputElement).value.trim());
+      const tigerName = (
+        document.getElementById("tiger-name") as HTMLInputElement
+      ).value.trim();
+      const tigerAge = parseInt(
+        (document.getElementById("tiger-age") as HTMLInputElement).value.trim(),
+      );
       if (!tigerName || isNaN(tigerAge)) {
         alert("Please fill in all required fields for Tiger.");
         return;
-    }
+      }
       newAnimal = new Tiger(tigerName, tigerAge);
       break;
     }
     default:
-      return
+      return;
   }
 
   animals.addAnimal(newAnimal);
@@ -148,22 +185,60 @@ addAnimal.addEventListener("click", () => {
   inputFields.forEach((input) => ((input as HTMLInputElement).value = ""));
 });
 
-
-
 const animalSelect = document.getElementById("choose-animal") as HTMLSelectElement;
 
+// --------------------SELECTED ANIMAL FIELDS ---------------------------
+
 animalSelect.addEventListener("change", () => {
-    const selectedAnimal = animalSelect.value;
-    const animalFields = document.querySelectorAll(".animal-fields") as NodeListOf<HTMLElement>;
+  const selectedAnimal = animalSelect.value;
+  const animalFields = document.querySelectorAll(".animal-fields") as NodeListOf<HTMLElement>;
 
-    // Hide all animal fields initially
-    animalFields.forEach(field => {
-        field.style.display = "none";
-    });
+  animalFields.forEach((field) => {
+    field.style.display = "none";
+  });
 
-    // Show fields corresponding to the selected animal
-    const selectedAnimalFields = document.getElementById(`${selectedAnimal.toLowerCase()}-fields`);
-    if (selectedAnimalFields) {
-        selectedAnimalFields.style.display = "block";
-    }
+  const selectedAnimalFields = document.getElementById(`${selectedAnimal.toLowerCase()}-fields`);
+  if (selectedAnimalFields) {
+    selectedAnimalFields.style.display = "block";
+  }
 });
+
+// ----------------LOGGER---------------------------------------
+const logger = Logger.getInstance();
+
+logger.logMessage("Message 1");
+logger.logMessage("Message 2");
+
+
+// logger.logMessage(allAnimals);
+// logger.logMessage(allEmployees);
+
+const allMessages = logger.getMessages();
+console.log(allMessages);
+
+
+
+
+// -----------DISPLAY---------------------------------
+const animalListElement = document.getElementById("animal-list");
+if (animalListElement) {
+  animalListElement.innerText = "All Animals";
+
+  allAnimals.forEach(animal => {
+    const animalInfo = document.createElement("p");
+    animalInfo.textContent = `Name: ${animal.name}, Age: ${animal.age}`;
+    animalListElement.appendChild(animalInfo);
+  });
+}
+
+
+const employeeListElement = document.getElementById("employee-list");
+if (employeeListElement) {
+  employeeListElement.innerText = "All Employees";
+
+  allEmployees.forEach(employee => {
+    const employeeInfo = document.createElement("p");
+    employeeInfo.textContent = `Name: ${employee.name}`;
+    employeeListElement.appendChild(employeeInfo);
+  });
+}
