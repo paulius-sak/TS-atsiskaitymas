@@ -1,6 +1,8 @@
 import { Employees } from "../src/features/employee/Employees";
 import { Employee } from "../src/features/employee/Employee";
 
+import {updateAnimalList, updateEmployeeList} from "./utils/updateList"
+
 import { Animals } from "../src/features/animal/Animals";
 import { Elephant, Zebra, Tiger } from "../src/features/animal/Zoo";
 
@@ -65,9 +67,7 @@ console.log(allAnimals);
 
 // -------------------------ADD EMPLOYEE--------------------------------------
 
-const addEmployeeBtn = document.getElementById(
-  "add-employee",
-) as HTMLButtonElement;
+const addEmployeeBtn = document.getElementById("add-employee") as HTMLButtonElement;
 const title = document.getElementById("title") as HTMLInputElement;
 
 addEmployeeBtn.addEventListener("click", () => {
@@ -82,6 +82,8 @@ addEmployeeBtn.addEventListener("click", () => {
 
     const allEmployees = employees.getEmployees();
     console.log(allEmployees);
+
+    updateEmployeeList(employees.getEmployees())
 
     document.getElementById("employee-message")!.innerText =
       `${name} added successfully.`;
@@ -183,6 +185,8 @@ addAnimal.addEventListener("click", () => {
 
   const inputFields = document.querySelectorAll(".animal-fields input");
   inputFields.forEach((input) => ((input as HTMLInputElement).value = ""));
+
+  updateAnimalList(animals.getAnimals())
 });
 
 const animalSelect = document.getElementById("choose-animal") as HTMLSelectElement;
@@ -225,7 +229,7 @@ if (animalListElement) {
   animalListElement.innerText = "All Animals";
 
   allAnimals.forEach(animal => {
-    const animalInfo = document.createElement("p");
+    const animalInfo = document.createElement("li");
     animalInfo.textContent = `Name: ${animal.name}, Age: ${animal.age}`;
     animalListElement.appendChild(animalInfo);
   });
@@ -237,7 +241,7 @@ if (employeeListElement) {
   employeeListElement.innerText = "All Employees";
 
   allEmployees.forEach(employee => {
-    const employeeInfo = document.createElement("p");
+    const employeeInfo = document.createElement("li");
     employeeInfo.textContent = `Name: ${employee.name}`;
     employeeListElement.appendChild(employeeInfo);
   });

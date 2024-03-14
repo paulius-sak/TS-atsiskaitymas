@@ -1,21 +1,25 @@
-
 body {
-    background-color: rgb(158, 228, 137);
+  background-color: rgb(158, 228, 137);
 }
 .add-employee-wrapper {
-    border: 1px solid black;
-    padding: 30px;
+  border: 1px solid black;
+  padding: 30px;
 }
 .add-animal-wrapper {
-    border: 1px solid black;
-    padding: 30px;
-        input {
-            margin: 10px 0;
-        }
+  border: 1px solid black;
+  padding: 30px;
+  input {
+    margin: 10px 0;
+  }
 }
 
 .app {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
+.lists-wrapper {
+  display: flex;
+  gap: 30px;
+}
+
